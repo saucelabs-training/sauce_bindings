@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    name: sauce_bindings
+    description: Making test automation with Sauce Labs insanely simple 
+    tags:
+      - selenium
+    links:
+      - url: https://opensource.saucelabs.com/sauce_bindings/docs/overview/
+        title: Website
+        icon: web
+spec:
+    type: service
+    lifecycle: production
+    owner: sauce-labs-solution-architects
+    system: oss
