@@ -9,6 +9,8 @@ metadata:
       - url: https://opensource.saucelabs.com/sauce_bindings/docs/overview/
         title: Website
         icon: web
+    annotations:
+        backstage.io/techdocs-ref: url:https://github.com/saucelabs/sauce_bindings/tree/backstage-integration          
 spec:
     type: service
     lifecycle: production
