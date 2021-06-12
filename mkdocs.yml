@@ -1,0 +1,9 @@
+site_name: 'sauce_bindings-docs'
+
+nav:
+  - Home: index.md
+
+plugins:
+  - techdocs-core
+
+docs_dir: 'backstage_docs'
