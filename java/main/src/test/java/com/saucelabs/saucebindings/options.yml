@@ -11,6 +11,26 @@ exampleValues:
     implicit: 1000
     pageLoad: 59000
     script: 29000
+  visual:
+    projectName: 'My Project'
+    viewportSize: 393x786
+    baseBranch: baseBranch
+    ignore: '#some-id, .some-selector'
+    failOnNewStates: true
+    alwaysAcceptBaseBranch: true
+    disableBranchBaseline: true
+    scrollAndStitchScreenshots: true
+    disableCORS: true
+    iframes: true
+    diffOptions:
+      structure: true
+      layout: true
+      style: true
+      content: true
+      minLayoutPosition: 4
+      minLayoutDimension: 10
+    iframesOptions:
+      maxFrames: Infinity
   sauce:
     avoidProxy: true
     build: 'Sample Build Name'

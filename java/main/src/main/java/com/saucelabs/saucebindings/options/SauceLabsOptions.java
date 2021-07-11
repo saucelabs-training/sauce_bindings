@@ -140,46 +140,9 @@ public class SauceLabsOptions extends BaseOptions {
     public String getBuild() {
         if (build != null) {
             return build;
-        } else if (SystemManager.get(knownCITools.get("Jenkins")) != null) {
-            return SystemManager.get("BUILD_NAME") + ": " + SystemManager.get("BUILD_NUMBER");
-        } else if (SystemManager.get(knownCITools.get("Bamboo")) != null) {
-            return SystemManager.get("bamboo_shortJobName") + ": " + SystemManager.get("bamboo_buildNumber");
-        } else if (SystemManager.get(knownCITools.get("Travis")) != null) {
-            return SystemManager.get("TRAVIS_JOB_NAME") + ": " + SystemManager.get("TRAVIS_JOB_NUMBER");
-        } else if (SystemManager.get(knownCITools.get("Circle")) != null) {
-            return SystemManager.get("CIRCLE_JOB") + ": " + SystemManager.get("CIRCLE_BUILD_NUM");
-        } else if (SystemManager.get(knownCITools.get("GitLab")) != null) {
-            return SystemManager.get("CI_JOB_NAME") + ": " + SystemManager.get("CI_JOB_ID");
-        } else if (SystemManager.get(knownCITools.get("TeamCity")) != null) {
-            return SystemManager.get("TEAMCITY_PROJECT_NAME") + ": " + SystemManager.get("BUILD_NUMBER");
         } else {
-            return "Build Time: " + System.currentTimeMillis();
+            return getDefaultBuildName() + ": " + getDefaultBuildNumber();
         }
-    }
-
-    /**
-     * @deprecated This method is no longer supported
-     * @return whether CI is accounted for in code
-     */
-    @Deprecated
-    public boolean isKnownCI() {
-        return !knownCITools.keySet().stream().allMatch((key) -> SystemManager.get(key) == null);
-    }
-
-    /**
-     * @deprecated This method will no longer be public
-     */
-    @Deprecated
-    public static final Map<String, String> knownCITools;
-
-    static {
-        knownCITools = new HashMap<>();
-        knownCITools.put("Jenkins", "BUILD_TAG");
-        knownCITools.put("Bamboo", "bamboo_agentId");
-        knownCITools.put("Travis", "TRAVIS_JOB_ID");
-        knownCITools.put("Circle", "CIRCLE_JOB");
-        knownCITools.put("GitLab", "CI");
-        knownCITools.put("TeamCity", "TEAMCITY_PROJECT_NAME");
     }
 
     protected String getSauceUsername() {

@@ -1,6 +1,7 @@
 package com.saucelabs.saucebindings.options;
 
 import com.saucelabs.saucebindings.*;
+import com.saucelabs.saucebindings.pixels.ScreenResolution;
 import lombok.SneakyThrows;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.UnexpectedAlertBehaviour.DISMISS;
 
 public class SauceOptionsTest {
@@ -121,7 +123,7 @@ public class SauceOptionsTest {
         sauceOptions.sauce().setRecordLogs(false);
         sauceOptions.sauce().setRecordScreenshots(false);
         sauceOptions.sauce().setRecordVideo(false);
-        sauceOptions.sauce().setScreenResolution("10x10");
+        sauceOptions.sauce().setScreenResolution(ScreenResolution.XGA.getValue());
         sauceOptions.sauce().setSeleniumVersion("3.141.59");
         sauceOptions.sauce().setTags(tags);
         sauceOptions.sauce().setTimeZone("San Francisco");
@@ -146,7 +148,7 @@ public class SauceOptionsTest {
         assertEquals(false, sauceOptions.sauce().getRecordLogs());
         assertEquals(false, sauceOptions.sauce().getRecordScreenshots());
         assertEquals(false, sauceOptions.sauce().getRecordVideo());
-        assertEquals("10x10", sauceOptions.sauce().getScreenResolution());
+        assertEquals("1024x768", sauceOptions.sauce().getScreenResolution());
         assertEquals("3.141.59", sauceOptions.sauce().getSeleniumVersion());
         assertEquals(tags, sauceOptions.sauce().getTags());
         assertEquals("San Francisco", sauceOptions.sauce().getTimeZone());
@@ -193,6 +195,17 @@ public class SauceOptionsTest {
         tags.add("bar");
         tags.add("foobar");
 
+        Map<String, Object> diffOptions = new HashMap<>();
+        diffOptions.put("structure", true);
+        diffOptions.put("layout", true);
+        diffOptions.put("style", true);
+        diffOptions.put("content", true);
+        diffOptions.put("minLayoutPosition", 4);
+        diffOptions.put("minLayoutDimension", 10);
+
+        Map<String, Object> iframesOptions = new HashMap<>();
+        iframesOptions.put("maxFrames", "Infinity");
+
         assertEquals(Browser.FIREFOX, sauceOptions.getBrowserName());
         assertEquals("68", sauceOptions.getBrowserVersion());
         assertEquals(SaucePlatform.MAC_HIGH_SIERRA, sauceOptions.getPlatformName());
@@ -228,6 +241,19 @@ public class SauceOptionsTest {
         assertEquals("San Francisco", sauceOptions.sauce().getTimeZone());
         assertEquals("tunnelname", sauceOptions.sauce().getTunnelIdentifier());
         assertEquals(false, sauceOptions.sauce().getVideoUploadOnPass());
+
+        assertEquals("My Project", sauceOptions.visual().getProjectName());
+        assertEquals("393x786", sauceOptions.visual().getViewportSize());
+        assertEquals("baseBranch", sauceOptions.visual().getBaseBranch());
+        assertEquals(diffOptions, sauceOptions.visual().getDiffOptions());
+        assertEquals("#some-id, .some-selector", sauceOptions.visual().getIgnore());
+        assertTrue(sauceOptions.visual().getFailOnNewStates());
+        assertTrue(sauceOptions.visual().getAlwaysAcceptBaseBranch());
+        assertTrue(sauceOptions.visual().getDisableBranchBaseline());
+        assertTrue(sauceOptions.visual().getScrollAndStitchScreenshots());
+        assertTrue(sauceOptions.visual().getDisableCORS());
+        assertTrue(sauceOptions.visual().getIframes());
+        assertEquals(iframesOptions, sauceOptions.visual().getIframesOptions());
     }
 
     @Test(expected = InvalidSauceOptionsArgumentException.class)
@@ -353,7 +379,7 @@ public class SauceOptionsTest {
         sauceOptions.sauce().setRecordLogs(false);
         sauceOptions.sauce().setRecordScreenshots(false);
         sauceOptions.sauce().setRecordVideo(false);
-        sauceOptions.sauce().setScreenResolution("10x10");
+        sauceOptions.sauce().setScreenResolution(ScreenResolution.XGA.getValue());
         sauceOptions.sauce().setSeleniumVersion("3.141.59");
         sauceOptions.sauce().setTags(tags);
         sauceOptions.sauce().setTimeZone("San Francisco");
@@ -379,7 +405,7 @@ public class SauceOptionsTest {
         sauceCapabilities.setCapability("recordLogs", false);
         sauceCapabilities.setCapability("recordScreenshots", false);
         sauceCapabilities.setCapability("recordVideo", false);
-        sauceCapabilities.setCapability("screenResolution", "10x10");
+        sauceCapabilities.setCapability("screenResolution", "1024x768");
         sauceCapabilities.setCapability("seleniumVersion", "3.141.59");
         sauceCapabilities.setCapability("tags", tags);
         sauceCapabilities.setCapability("timeZone", "San Francisco");

@@ -1,5 +1,9 @@
 package com.saucelabs.saucebindings;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class SystemManager {
 
     /**
@@ -32,6 +36,22 @@ public class SystemManager {
             return System.getenv(key);
         } else {
             return null;
+        }
+    }
+
+    public static String getCurrentGitBranch() {
+        try {
+            Process process = Runtime.getRuntime().exec("git rev-parse --abbrev-ref HEAD");
+            process.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line.contains("fatal:")) {
+                return "default";
+            } else {
+                return line;
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.saucelabs.saucebindings.options;
 
 import com.saucelabs.saucebindings.*;
+import com.saucelabs.saucebindings.pixels.ScreenResolution;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -106,7 +107,7 @@ public class EdgeConfigurationsTest {
                 .disableRecordLogs()
                 .disableRecordScreenshots()
                 .disableRecordVideo()
-                .setScreenResolution("1024x768")
+                .setScreenResolution(ScreenResolution.XGA.getValue())
                 .setSeleniumVersion("3.141.0")
                 .setTags(tags)
                 .setTimeZone("San Francisco")

@@ -230,6 +230,7 @@ public abstract class VDCConfigurations<T extends VDCConfigurations<T>> extends 
      *
      * @param resolution The screen resolution to be used
      * @return instance of configuration
+     * @see com.saucelabs.saucebindings.pixels.ScreenResolution
      */
     public T setScreenResolution(String resolution) {
         sauceOptions.sauce().setScreenResolution(resolution);
@@ -242,6 +243,15 @@ public abstract class VDCConfigurations<T extends VDCConfigurations<T>> extends 
      */
     public T setTimeZone(String timeZone) {
         sauceOptions.sauce().setTimeZone(timeZone);
+        return (T) this;
+    }
+
+    /**
+     * @param options specify the visual options to use with the test
+     * @return instance of Configuration
+     */
+    public T setVisualOptions(VisualOptions options) {
+        sauceOptions.setVisualOptions(options);
         return (T) this;
     }
 }

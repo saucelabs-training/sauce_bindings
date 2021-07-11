@@ -23,6 +23,7 @@ import java.util.Map;
 @Setter @Getter
 public class SauceOptions extends BaseOptions {
     @Setter(AccessLevel.NONE) @Getter(AccessLevel.NONE) private SauceLabsOptions sauceLabsOptions = null;
+    @Getter(AccessLevel.NONE) private VisualOptions visualOptions = null;
     public TimeoutStore timeout = new TimeoutStore();
 
     // w3c Settings
@@ -176,6 +177,16 @@ public class SauceOptions extends BaseOptions {
         return sauceLabsOptions;
     }
 
+    /**
+     * This method does not need to be used if working with the static methods and the build() method
+     *
+     * @return an instance of VisualOptions if one has been created
+     * @see #setVisualOptions(VisualOptions)
+     */
+    public VisualOptions visual() {
+        return visualOptions;
+    }
+
     public SauceOptions() {
         this(new MutableCapabilities());
     }
@@ -203,7 +214,10 @@ public class SauceOptions extends BaseOptions {
      */
     public MutableCapabilities toCapabilities() {
         capabilityManager.addCapabilities();
-        capabilities.setCapability("sauce:options", sauce().toCapabilities());
+        capabilities.setCapability("sauce:options", sauceLabsOptions.toCapabilities());
+        if (visualOptions != null) {
+            capabilities.setCapability("sauce:visual", visualOptions.toCapabilities());
+        }
         return capabilities;
     }
 
@@ -243,6 +257,10 @@ public class SauceOptions extends BaseOptions {
                 break;
             case "sauce":
                 sauce().mergeCapabilities((HashMap<String, Object>) value);
+                break;
+            case "visual":
+                visualOptions = new VisualOptions();
+                visualOptions.mergeCapabilities((HashMap<String, Object>) value);
                 break;
             default:
                 if (sauce().getValidOptions().contains(key)) {

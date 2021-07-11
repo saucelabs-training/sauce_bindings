@@ -1,6 +1,7 @@
 package com.saucelabs.saucebindings.options;
 
 import com.saucelabs.saucebindings.*;
+import com.saucelabs.saucebindings.pixels.ScreenResolution;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
@@ -117,7 +118,7 @@ public class ChromeConfigurationsTest {
                 .disableRecordLogs()
                 .disableRecordScreenshots()
                 .disableRecordVideo()
-                .setScreenResolution("1024x768")
+                .setScreenResolution(ScreenResolution.XGA.getValue())
                 .setTags(tags)
                 .setTimeZone("San Francisco")
                 .setTunnelIdentifier("tunnelname")
